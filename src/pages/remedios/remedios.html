@@ -22,13 +22,12 @@
 </ion-fab>
 
 <ion-list>
-	<button ion-item>
-	
+	<button ion-item *ngFor="let remedio of listaRemedios">
 		<ion-avatar item-left>
 		<img src="">
 		</ion-avatar>
-		<h2>Nome do remédio</h2>
-		<p>Descrição</p>
+		<h2>{{ remedio.nome}}</h2>
+		<p>{{ remedio.descricao}}</p>
 	</button>
 </ion-list>
 

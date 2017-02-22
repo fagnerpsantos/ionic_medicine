@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import {RemedioService} from '../../providers/remedio-service';
+import {RemedioInterface} from '../../interfaces/remedio-interface';
+
 /*
   Generated class for the Remedios page.
 
@@ -13,7 +16,12 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class RemediosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+public listaRemedios: RemedioInterface[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, RemedioService: RemedioService) {
+  	//console.log(RemedioService.ListaRemedios());
+  	this.listaRemedios = RemedioService.ListaRemedios();
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RemediosPage');
