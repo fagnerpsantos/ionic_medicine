@@ -20,7 +20,9 @@ public listaRemedios: RemedioInterface[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, RemedioService: RemedioService) {
   	//console.log(RemedioService.ListaRemedios());
-  	this.listaRemedios = RemedioService.ListaRemedios();
+  	RemedioService.ListaRemedios().then((data)=>{
+  		this.listaRemedios = data;
+  	})
   }
 
   ionViewDidLoad() {

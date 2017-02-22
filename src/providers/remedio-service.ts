@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { Storage } from '@ionic/storage';
+
+
 /*
   Generated class for the RemedioService provider.
 
@@ -11,14 +14,19 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class RemedioService {
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public storage: Storage) {
     console.log('Hello RemedioService Provider');
   }
 
   ListaRemedios(){
-  	return [
+
+  	let lista = [
   		{id: 1, nome: 'Remédio 1', descricao: 'Descrição', toque:'', foto:'', repetir: '', notificacoes:[]}
   	];
+
+  	this.storage.set('remedios', lista);
+
+  	return this.storage.get('remedios');
   }
 
 }

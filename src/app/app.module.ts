@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Storage } from '@ionic/storage';
 
 import { RemediosPage } from '../pages/remedios/remedios';
 import { AboutPage } from '../pages/about/about';
@@ -31,6 +32,6 @@ import { RemedioService } from '../providers/remedio-service';
     HomePage,
     TabsPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, RemedioService]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, RemedioService, Storage]
 })
 export class AppModule {}
