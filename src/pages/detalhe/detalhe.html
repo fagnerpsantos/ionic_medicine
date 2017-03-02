@@ -15,6 +15,14 @@
 
 <ion-content>
 
+	<ion-fab top right edge>
+	<button ion-fab mini><ion-icon name="add"></ion-icon></button>
+	<ion-fab-list>
+	<button ion-fab (click)="abreEditaRemedio()"><ion-icon color="primary" name="create"></ion-icon></button>
+	<button ion-fab (click)="removeRemedio()"><ion-icon color="danger" name="trash"></ion-icon></button>
+	</ion-fab-list>
+	</ion-fab>
+
 	<ion-card>
 	
 	<ion-item>
@@ -32,19 +40,29 @@
 
 	</ion-card>
 
-	<div padding>
+	<div padding [hidden]="editandoHorario">
 		<ion-item>
 		  <ion-label>Adicionar Horário</ion-label>
 		  <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="horario" (ngModelChange)="adicionaHorario()"></ion-datetime>
 		</ion-item>
 	</div>
 
+		<div padding [hidden]="!editandoHorario">
+		<ion-item>
+		  <ion-label>Editar Horário</ion-label>
+		  <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="horario" (ngModelChange)="atualizaHorario()"></ion-datetime>
+		</ion-item>
+		<p>
+			<button ion-button color="light" (click)="cancelarEditar()" block>Cancelar</button>
+		</p>
+	</div>
+
 	<ion-list padding>
 		<ion-item *ngFor="let item of remedio.notificacoes">
 			<ion-icon item-left name="alarm"></ion-icon>
 			<h2>{{item.hora}}h{{trataMinuto(item.minuto)}}min</h2>
-			<ion-icon item-right color="primary" name="create"></ion-icon>	
-			<ion-icon item-right color="danger" name="trash"></ion-icon>	
+			<ion-icon item-right color="primary" (click)="editarHorario(item)" name="create"></ion-icon>	
+			<ion-icon item-right color="danger" (click)="deletarHorario(item)" name="trash"></ion-icon>	
 		</ion-item>
 	</ion-list>
 

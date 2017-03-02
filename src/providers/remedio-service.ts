@@ -61,6 +61,8 @@ export class RemedioService {
     this.listaRemedios.push(remedio);
     this.storage.set('remedios', this.listaRemedios);
 
+    return remedio;
+
   }
 
   EditRemedio(remedio:RemedioInterface){
@@ -68,6 +70,16 @@ export class RemedioService {
     for(let chave in lista){
       if(lista[chave].id == remedio.id){
         lista[chave] = remedio;
+        this.storage.set('remedios', lista);
+      }
+    }
+  }
+
+  DeleteRemedio(remedio: RemedioInterface){
+    let lista = this.listaRemedios;
+    for(let chave in lista){
+      if(lista[chave].id == remedio.id){
+        lista.splice(parseInt(chave), 1);
         this.storage.set('remedios', lista);
       }
     }
@@ -84,6 +96,34 @@ export class RemedioService {
     this.EditRemedio(remedio);
     return remedio;
 
+  }
+
+  EditHorarios(horario: string, remedio: RemedioInterface, notificacao: NotificacaoInterface){
+    let aux = horario.split(":");
+    let hora = parseInt(aux[0]);
+    let minuto = parseInt(aux[1]);
+    notificacao.hora = hora;
+    notificacao.minuto = minuto;
+
+    let lista = remedio.notificacoes;
+    for(let chave in lista){
+      if(lista[chave].id == notificacao.id){
+        remedio.notificacoes[chave] = notificacao;
+        this.EditRemedio(remedio);
+        return remedio;
+      }
+    }
+  }
+
+  DeletHorarios(remedio: RemedioInterface, notificacao: NotificacaoInterface){
+    let lista = remedio.notificacoes;
+    for(let chave in lista){
+      if(lista[chave].id == notificacao.id){
+        remedio.notificacoes.splice(parseInt(chave), 1);
+        this.EditRemedio(remedio);
+        return remedio;
+      }
+    }
   }
 
 }

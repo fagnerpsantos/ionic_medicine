@@ -48,8 +48,8 @@
 	</ion-item>
 	<p>
 	<button [hidden]="editando" ion-button color="primary" (click)="adicionaRemedio()" block>Adicionar</button>
-	<button [hidden]="!editando" ion-button color="primary" block>Atualizar</button>
-	<button ion-button color="light" block>Cancelar</button>
+	<button [hidden]="!editando" (click)="editaRemedio()" ion-button color="primary" block>Atualizar</button>
+	<button ion-button color="light" (click)="cancelarFormulario()" block>Cancelar</button>
 	</p>
 
 </ion-content>

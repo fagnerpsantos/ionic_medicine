@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import {DetalhePage} from '../detalhe/detalhe';
 import {RemedioService} from '../../providers/remedio-service';
 import {RemedioInterface} from '../../interfaces/remedio-interface';
 
@@ -20,7 +21,13 @@ export class FormRemedioPage {
 	public editando: boolean = false;
 	public remedio: RemedioInterface = {nome:'', descricao:'', toque:'', foto:'',  repetir:'', notificacoes:[]};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public RemedioService: RemedioService) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public RemedioService: RemedioService) {
+  	if(navParams.get('remedio')){
+  		this.tituloPagina = 'Editando Remédio';
+  		this.editando = true;
+  		this.remedio = navParams.get('remedio');
+  	}
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FormRemedioPage');
@@ -28,11 +35,24 @@ export class FormRemedioPage {
 
   adicionaRemedio(){
   	if(this.remedio.nome != '' && this.remedio.descricao != ''){
-  		this.RemedioService.AddRemedio(this.remedio);
+  		this.remedio = this.RemedioService.AddRemedio(this.remedio);
   		this.navCtrl.pop();
-  	} 
-  	
+  		this.navCtrl.push(DetalhePage, {remedio:this.remedio});
 
+  	} 	
+  }
+
+  cancelarFormulario(){
+  this.navCtrl.pop();
+
+  }
+
+  editaRemedio(){
+  	if(this.remedio.nome != '' && this.remedio.descricao != ''){
+  		this.RemedioService.EditRemedio(this.remedio);
+  		this.navCtrl.pop();
+  		this.navCtrl.push(DetalhePage, {remedio:this.remedio});
+  	} 
   }
 
 }
