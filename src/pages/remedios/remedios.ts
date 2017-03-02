@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { FormRemedioPage } from '../form-remedio/form-remedio';
+import { DetalhePage } from '../detalhe/detalhe';
 
 import {RemedioService} from '../../providers/remedio-service';
 import {RemedioInterface} from '../../interfaces/remedio-interface';
@@ -34,6 +35,10 @@ public listaRemedios: RemedioInterface[];
   abreFormRemedio(){
     this.navCtrl.push(FormRemedioPage);
 
+  }
+
+  abreDetalhe(remedio: RemedioInterface){
+    this.navCtrl.push(DetalhePage,{remedio:remedio});
   }
 
 }

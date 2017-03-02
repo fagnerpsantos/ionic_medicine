@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 
 import { Storage } from '@ionic/storage';
 import {RemedioInterface} from '../interfaces/remedio-interface';
+import {NotificacaoInterface} from '../interfaces/notificacao-interface';
 
 
 /*
@@ -16,16 +17,27 @@ import {RemedioInterface} from '../interfaces/remedio-interface';
 export class RemedioService {
 
   public id_remedio: number;
+  public id_notificacao: number;
   public listaRemedios: RemedioInterface[];
 
   constructor(public http: Http, public storage: Storage) {
     console.log('Hello RemedioService Provider');
+
     storage.get('id_remedio').then((val)=>{
       if(val){
         this.id_remedio = val;
       }else{
         this.id_remedio = 0;
         storage.set('id_remedio',0);
+      }
+    });
+
+    storage.get('id_notificacao').then((val)=>{
+      if(val){
+        this.id_notificacao = val;
+      }else{
+        this.id_notificacao = 0;
+        storage.set('id_notificacao',0);
       }
     });
 
@@ -49,6 +61,28 @@ export class RemedioService {
     this.listaRemedios.push(remedio);
     this.storage.set('remedios', this.listaRemedios);
 
+  }
+
+  EditRemedio(remedio:RemedioInterface){
+    let lista = this.listaRemedios;
+    for(let chave in lista){
+      if(lista[chave].id == remedio.id){
+        lista[chave] = remedio;
+        this.storage.set('remedios', lista);
+      }
+    }
+  }
+
+  AddHorarios(horario: string, remedio: RemedioInterface){
+    let aux = horario.split(":");
+    let hora = parseInt(aux[0]);
+    let minuto = parseInt(aux[1]);
+    let id = this.id_notificacao + 1;
+    this.storage.set('id_notificacao', id);
+    let notificacao: NotificacaoInterface = {id:id, hora:hora, minuto:minuto};
+    remedio.notificacoes.push(notificacao);
+    this.EditRemedio(remedio);
+    return remedio;
 
   }
 

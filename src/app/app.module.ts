@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { RemediosPage } from '../pages/remedios/remedios';
 import { FormRemedioPage } from '../pages/form-remedio/form-remedio';
+import { DetalhePage } from '../pages/detalhe/detalhe';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
@@ -17,6 +18,7 @@ import { RemedioService } from '../providers/remedio-service';
     MyApp,
     RemediosPage,
     FormRemedioPage,
+    DetalhePage,
     AboutPage,
     ContactPage,
     HomePage,
@@ -30,6 +32,7 @@ import { RemedioService } from '../providers/remedio-service';
     MyApp,
     RemediosPage,
     FormRemedioPage,
+    DetalhePage,
     AboutPage,
     ContactPage,
     HomePage,
