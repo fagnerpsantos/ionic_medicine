@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 import { Storage } from '@ionic/storage';
+import {RemedioInterface} from '../interfaces/remedio-interface';
 
 
 /*
@@ -14,19 +15,41 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class RemedioService {
 
+  public id_remedio: number;
+  public listaRemedios: RemedioInterface[];
+
   constructor(public http: Http, public storage: Storage) {
     console.log('Hello RemedioService Provider');
-  }
+    storage.get('id_remedio').then((val)=>{
+      if(val){
+        this.id_remedio = val;
+      }else{
+        this.id_remedio = 0;
+        storage.set('id_remedio',0);
+      }
+    });
+
+    storage.get('remedios').then((val)=>{
+      if(val){
+        this.listaRemedios = val;
+      }else{
+      this.listaRemedios = [];
+      storage.set('remedios', []);
+      }
+    });
+    }
 
   ListaRemedios(){
-
-  	let lista = [
-  		{id: 1, nome: 'Remédio 1', descricao: 'Descrição', toque:'', foto:'', repetir: '', notificacoes:[]}
-  	];
-
-  	this.storage.set('remedios', lista);
-
   	return this.storage.get('remedios');
+  }
+
+  AddRemedio(remedio:RemedioInterface){
+    remedio.id = this.id_remedio + 1;
+    this.storage.set('id_remedio',remedio.id);
+    this.listaRemedios.push(remedio);
+    this.storage.set('remedios', this.listaRemedios);
+
+
   }
 
 }

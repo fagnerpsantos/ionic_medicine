@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { FormRemedioPage } from '../form-remedio/form-remedio';
+
 import {RemedioService} from '../../providers/remedio-service';
 import {RemedioInterface} from '../../interfaces/remedio-interface';
 
@@ -18,15 +20,20 @@ export class RemediosPage {
 
 public listaRemedios: RemedioInterface[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, RemedioService: RemedioService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public RemedioService: RemedioService) {
   	//console.log(RemedioService.ListaRemedios());
-  	RemedioService.ListaRemedios().then((data)=>{
-  		this.listaRemedios = data;
-  	})
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RemediosPage');
+  ionViewDidEnter() {
+      this.RemedioService.ListaRemedios().then((data)=>{
+        this.listaRemedios = data;
+    })
+  }
+
+  abreFormRemedio(){
+    this.navCtrl.push(FormRemedioPage);
+
   }
 
 }

@@ -1,0 +1,55 @@
+<!--
+  Generated template for the FormRemedio page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{tituloPagina}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+	<ion-item>
+		<ion-label color="primary" stacked>Nome</ion-label>
+		<ion-input type="text" [(ngModel)]="remedio.nome" placeholder="Nome do remédio"></ion-input>
+	</ion-item>
+	<ion-item>
+		<ion-label color="primary" stacked>Descrição</ion-label>
+		<ion-input type="text" [(ngModel)]="remedio.descricao" placeholder="Descrição do remédio"></ion-input>
+	</ion-item>
+	<ion-item>
+	<ion-avatar item-left>
+		<img src="{{remedio.foto}}" >
+	</ion-avatar>
+	<h2>Foto do remédio</h2>
+	</ion-item>
+	<ion-item>
+	<ion-label>Notificação</ion-label>
+	<ion-select [(ngModel)]="remedio.toque">
+	<ion-option value="res://platform_default">Toque Padrão</ion-option>
+	<ion-option value="file://assets/audio/audio1.wav">Toque 1</ion-option>
+	</ion-select>
+	</ion-item>
+
+	<ion-item>
+	<ion-label>Repetir</ion-label>
+	<ion-select [(ngModel)]="remedio.repetir">
+	<ion-option value="">Não</ion-option>
+	<ion-option value="day">Dia</ion-option>
+	<ion-option value="week">Semana</ion-option>
+	<ion-option value="month">Mês</ion-option>
+	</ion-select>
+	</ion-item>
+	<p>
+	<button [hidden]="editando" ion-button color="primary" (click)="adicionaRemedio()" block>Adicionar</button>
+	<button [hidden]="!editando" ion-button color="primary" block>Atualizar</button>
+	<button ion-button color="light" block>Cancelar</button>
+	</p>
+
+</ion-content>
